@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+402 Error - Payment Required
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+
+      <h1 class="pt-5 pb-2">Payment Required (Error 402)</h1>
+
+      <p><a href="{{ url_for('index') }}">Return to API Documentation</a></p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

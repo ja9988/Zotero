@@ -1,0 +1,4 @@
+Flask==2.0.1
+protobuf==3.19.0
+google-cloud-bigquery==2.26.0
+gunicorn==20.1.0

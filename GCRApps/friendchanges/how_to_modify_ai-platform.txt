@@ -1,0 +1,1 @@
+gcloud ai-platform versions update beta_01 --model=crypto_fof_only --config=old_ml_model_settings.yaml

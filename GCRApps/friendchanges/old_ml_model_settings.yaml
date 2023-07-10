@@ -1,0 +1,4 @@
+description: Classify accounts based on text from friends of friends
+autoScaling:
+  minNodes: 0  
+  maxNodes: 1  

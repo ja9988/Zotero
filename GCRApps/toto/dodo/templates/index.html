@@ -1,0 +1,253 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+	<style>
+		body { background: #e8f1f9; }
+	</style>
+{% endblock %}
+
+
+{% block title %}
+TOTO is coming home soon
+{% endblock %}
+
+
+{% block head %}
+{{super()}}
+{% block favicon %}<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">{% endblock %}
+{% block feeds %}{% endblock %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+
+      <h1 class="pt-5 pb-2 text-light">TOTO API Documentation</h1>
+      <br>
+      <h2 class="pt-5 pb-2 text-light">Authentication</h2>
+      <p>
+        The API key you were assigned when registering is used to track your API usage through your 
+        request headers. If your API key becomes compromised you will have to
+        request a new API key from admin@ozdao.app.
+      </p>
+
+      <br>
+
+      <h2 class="pt-5 pb-2 text-light">Rate Limits</h2>
+      <p>
+        Rate limits apply to the periods listed with each endpoint/method and are calculated
+        from the time a request is made. Requests made after rate limits have been reached
+        do not count against you.
+      </p>
+
+      <br>
+
+      <h2 class="pt-5 pb-2 text-light">API Errors</h2>
+      <p>
+        The following errors will be returned according to circumstance:
+      </p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">Error 401</h4>
+          <b>Status Code:</b> 401
+          <br>
+          <b>Reason:</b> Unauthorized Access (invalid API key)
+          <br>
+          <b>Solution:</b> Obtain a new API key from admin@ozdao.app.
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">Error 403</h4>
+          <b>Status Code:</b> 403
+          <br>
+          <b>Reason:</b> Rate Limit Exceeded
+          <br>
+          <b>Solution:</b> Check your API usage using /account/rate_limits.
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">Error 404</h4>
+          <b>Status Code:</b> 404
+          <br>
+          <b>Reason:</b> Improper API Request
+          <br>
+          <b>Solution:</b> Check the format of your request and look at the examples provided
+          in the API documentation.
+        </li>
+
+      <br>
+      
+      <h2 class="pt-5 pb-2 text-light">Routes</h2>
+      <h3 class="pt-5 pb-2 text-light">beta_1/updates</h3>
+      <h5 class="pt-5 pb-2 text-light">Retrieve the latest updates from the past hour.</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">projects</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 48 GET requests/day, up to 100 results/request
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/updates/projects
+          <br>
+          <b>Requirements:</b> None (defaults to latest OzDAO alerts)
+          <br>
+          <b>Options:</b> filter by account type, account metadata, project ranking, followers ranking, search terms
+        </li>
+        <li class="list-group-item">
+          <p>
+            <h4 class="pt-5 pb-2 text-light">people</h4>
+              <b>Method:</b> POST
+              <br>
+              <b>Authentication:</b> API key
+              <br>
+              <b>Rate Limit:</b> 48 GET requests/day, up to 100 results/request
+              <br>
+              <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/updates/people
+              <br>
+              <b>Options</b>: filter by account metadata, followers ranking, search terms
+            </p>
+        </li>
+      </ul>
+
+      <br>
+
+      <h3 class="pt-5 pb-2 text-light">beta_1/query</h3>
+      <h5 class="pt-5 pb-2 text-light">Retrieve historical data from TOTO's database.</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">twitter_accounts</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 100 POST requests/day, up to 100 accounts/request
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/query/twitter_accounts
+          <br>
+          <b>Options:</b> filter by account type, account metadata, date, project ranking, followers ranking, search terms 
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">tweets (in development)</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Earn Limit:</b> 100 POST requests/day, up to 100 tweets/request
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/query/tweets
+          <br>
+          <b>Options:</b> filter by topic, ecosystem, notable interactions, date, search terms, author
+        </li>
+      </ul>
+
+      <br>
+
+      <h3 class="pt-5 pb-2 text-light">beta_1/classify</h3>
+      <h5 class="pt-5 pb-2 text-light">Submit accounts for classification and scoring.</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">twitter_accounts</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 100 POST requests/day, 100 classifications/request
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/classify/twitter_accounts
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">tweets (in development)</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 100 POST requests/day, 100 classifications/request
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/classify/tweets
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">get_results</h4>
+          <b>Method:</b> GET
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 100 GET requests/day
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/classify/get_results
+          <br>
+          <b>Requirements:</b> results_uuid
+        </li>
+      </ul>
+
+      <br>
+
+      <h3 class="pt-5 pb-2 text-light">beta_1/account</h3>
+      <h5 class="pt-5 pb-2 text-light">Manage your webhook settings.</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">set_webhook</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 48 POST requests/day (48 webhook changes/day)
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/account/set_webhook
+          <br>
+          <b>Requirements:</b> webhook_url 
+          <br>
+          <b>Options:</b> filters
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">configure_alerts</h4>
+          <b>Method:</b> POST
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 48 POST requests/day (48 webhook alert configuration changes/day)
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/account/configure_alerts
+          <br>
+          <b>Requirements:</b> None (defaults to OzDAO alerts)
+          <br>
+          <b>Options:</b> alert filters - search terms, ecosystems, followers rankings, account type, account metadata
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">rate_limits</h4>
+          <b>Method:</b> GET
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 300 GET requests/day
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/account/rate_limits
+          <br>
+          <b>Options:</b> api_route
+        </li>
+        <li class="list-group-item">
+          <h4 class="pt-5 pb-2 text-light">request_history</h4>
+          <b>Method:</b> GET
+          <br>
+          <b>Authentication:</b> API key
+          <br>
+          <b>Rate Limit:</b> 300 GET requests/day
+          <br>
+          <b>Endpoint URL:</b> https://toto.ozdao.app/beta_1/account/request_history
+          <br>
+          <b>Options:</b> time_interval
+        </li>
+      </ul>
+
+
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
