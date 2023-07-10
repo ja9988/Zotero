@@ -1,7 +1,7 @@
-Introducing Toto by OzDao!
+Introducing Dodo!
 
-What is Toto?
-Toto is OzDao's microservice stack.
+What is Dodo?
+Toto is Dodo's microservice stack.
 
 Why did we have to make Toto? How will this affect the
 user experience?
@@ -34,7 +34,7 @@ messages to pub/sub for delivery to toto/getpage.
 
 What do each of the microservices do?
 
-* toto/pagedispatch
+* dodo/pagedispatch
 -------------------
 -> Receives a message from pub/sub or cloud scheduler.
 If the message is from cloud scheduler or the pub/sub
@@ -46,7 +46,7 @@ requested and messages are sent via pub/sub containing
 the username + metadata, page number, total pages,
 and unique dispatch ID.
 
-* toto/getpage
+* dodo/getpage
 --------------
 -> Receives a message from pub/sub containing a username
 and associated metadata, page number, total pages and a
@@ -57,7 +57,7 @@ completed page scrapes using the unique dispatch ID,
 page number and total pages. If this page has already
 been succesfully scraped, then the page isn't scraped. 
 
-* toto/getmetadata
+* dodo/getmetadata
 --------------
 -> Receives a message from pub/sub containing a username
 and associated metadata requests and a unqiue dispatch ID. 
